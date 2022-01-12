@@ -114,7 +114,7 @@ const Blog = (props) => {
   );
 };
 
-export async function getStaticProps(ctx) {
+export async function getServerSideProps(ctx) {
   try {
     const blogs = await getAllBlogs({ offset: 0, limit: 500 });
 

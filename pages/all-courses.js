@@ -9,7 +9,7 @@ import {
   getAllCourses,
   getAllCategories,
   getAllCourseOffers,
-  getAllTopLevelCategories
+  getAllTopLevelCategories,
 } from "../apiCalls";
 import MetaTags from "../components/Meta/CourseMetaTags";
 import Pagination from "../components/pagination/Pagination";
@@ -58,12 +58,18 @@ const useStyles = makeStyles((theme) => ({
 const Course = (props) => {
   const classes = useStyles();
   // console.log('*********this is props*********: ', props);
-  const [categories, setCategories] = React.useState(props?.allCategories.final_obj);
+  const [categories, setCategories] = React.useState(
+    props?.allCategories.final_obj
+  );
   const [state, setState] = React.useState([]);
   const [courses, setCourses] = React.useState(props?.allCourses.final_obj);
-  const [allCourses, setAllCourses] = React.useState(props?.allCourses.final_obj);
+  const [allCourses, setAllCourses] = React.useState(
+    props?.allCourses.final_obj
+  );
   const [searchTrue, setSearchTrue] = React.useState(false);
-  const [totalPage, setTotalPage] = React.useState(Math.ceil(props?.allCourses.final_obj.length / 10));
+  const [totalPage, setTotalPage] = React.useState(
+    Math.ceil(props?.allCourses.final_obj.length / 10)
+  );
   const [currPage, setCurrPage] = React.useState(1);
 
   const handleChange = async (event, data) => {
@@ -76,10 +82,8 @@ const Course = (props) => {
       }
       setTotalPage(Math.ceil(newCourses.length / 10));
       setCourses(newCourses);
-
     } else {
-
-      const filterState = state.filter((val) => val !== data)
+      const filterState = state.filter((val) => val !== data);
 
       setState(filterState);
       var newCourses = [];
@@ -99,9 +103,11 @@ const Course = (props) => {
   return (
     <div>
       <MetaTags
-        title='Best Online Certification Courses | Get Trained & Certified - TekSlate'
+        title="Best Online Certification Courses | Get Trained & Certified - TekSlate"
         description="Find the Top 100+ Popular IT Courses . ✔️Live Classes ✔️Self-Paced Videos ✔️Corporate Training ➔ Learn from Industry Trainers. Enroll now!"
-        imgUrl='https://tekslateassets.s3.amazonaws.com/images/logo.svg' cannonical='all-course' />
+        imgUrl="https://tekslateassets.s3.amazonaws.com/images/logo.svg"
+        cannonical="all-course"
+      />
       <Banner setCourses={setCourses} setSearchTrue={setSearchTrue} />
       <Container maxWidth="lg">
         <Grid className={classes.wrapper} container spacing={3}>
@@ -141,7 +147,7 @@ const Course = (props) => {
 //   const allCategories = await getAllCategories();
 //   const allCourseOffers = await getAllCourseOffers();
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const details = {
     search_string: "",
     // limit: 10,
@@ -161,7 +167,7 @@ export async function getStaticProps() {
       actual_price_self_paced: val.actual_price_self_paced,
       selling_price_self_paced: val.selling_price_self_paced,
       actual_price_usd_self_paced: val.actual_price_usd_self_paced,
-      selling_price_usd_self_paced: val.selling_price_usd_self_paced
+      selling_price_usd_self_paced: val.selling_price_usd_self_paced,
     };
   }
 
@@ -169,7 +175,7 @@ export async function getStaticProps() {
     props: {
       allCourses,
       allCategories,
-      courseOffers
+      courseOffers,
     }, // will be passed to the page component as props
   };
 }
