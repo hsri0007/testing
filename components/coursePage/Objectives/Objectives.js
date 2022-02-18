@@ -2,8 +2,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import HeadingsComponent from "../HeadingsComponent/HeadingsComponent";
-import AccordionComponent from '../AccordionComponent/AccordionComponent';
-import FormModalComponent from '../FormModal/FormModal';
+import AccordionComponent from "../AccordionComponent/AccordionComponent";
+import FormModalComponent from "../FormModal/FormModal";
 import RequestCallBack from "./RequestCallBack";
 
 const useStyles = makeStyles((theme) => ({
@@ -11,35 +11,35 @@ const useStyles = makeStyles((theme) => ({
     padding: "18px 0",
   },
   objectivesContainer: {
-    display: 'grid',
-    gridTemplateColumns: '70% auto',
+    display: "grid",
+    gridTemplateColumns: "70% auto",
     [theme.breakpoints.down("md")]: {
-      gridTemplateColumns: '100%',
+      gridTemplateColumns: "100%",
     },
-    '& > div:last-child': {
+    "& > div:last-child": {
       [theme.breakpoints.down("md")]: {
-        display: 'none'
+        display: "none",
       },
-    }
+    },
   },
-  '&.MuiAccordionSummary-root': {
-    '&:hover': {
+  "&.MuiAccordionSummary-root": {
+    "&:hover": {
       // background: '#000',
-      color: '#ffcf00'
-    }
+      color: "#ffcf00",
+    },
   },
   contactUs: {
-    display: 'block',
-    padding: '16px 25px',
-    transition: 'all .8s ease',
-    width: '300px',
-    margin: ' 0 auto',
-    height: '140px',
-    boxShadow: '0 2px 8px 0 rgb(0 0 0 / 24%)',
+    display: "block",
+    padding: "16px 25px",
+    transition: "all .8s ease",
+    width: "300px",
+    margin: " 0 auto",
+    height: "140px",
+    boxShadow: "0 2px 8px 0 rgb(0 0 0 / 24%)",
     [theme.breakpoints.down("md")]: {
-      display: 'none'
+      display: "none",
     },
-  }
+  },
 }));
 
 export default function Objectives({ data }) {
@@ -59,33 +59,40 @@ export default function Objectives({ data }) {
     setThankyouPopup(false);
   };
 
-  var course = data.overview.course.replace(' Training', '');
+  var course = data.overview.course.replace(" Training", "");
 
   return (
     <div id="Objectives">
       <section className={classes.section}>
-        <Container style={{ padding: '0 0.5rem' }}>
-          <HeadingsComponent first={data.overview.course} last='Objectives' />
+        <Container style={{ padding: "0 0.5rem" }}>
+          <HeadingsComponent first={data?.course_headings?.course_objectives} />
           <div className={classes.objectivesContainer}>
-            <div style={{ paddingBottom: '1rem', }}>
+            <div style={{ paddingBottom: "1rem" }}>
               {data.objectives.map((c, i) => {
-                return <AccordionComponent
-                  handleChange={handleChange}
-                  expanded={expanded}
-                  i={i}
-                  title={c.overview_title}
-                  description={c.overview_description}
-                />
+                return (
+                  <AccordionComponent
+                    handleChange={handleChange}
+                    expanded={expanded}
+                    i={i}
+                    title={c.overview_title}
+                    description={c.overview_description}
+                  />
+                );
               })}
             </div>
             <div>
               <RequestCallBack setOpen={setOpen} />
             </div>
           </div>
-
         </Container>
-        <FormModalComponent subject={`${course} - Request Callback`} course={course} value={open} handleClose={handleClose} thankyouPopup={thankyouPopup} setThankyouPopup={setThankyouPopup} />
-
+        <FormModalComponent
+          subject={`${course} - Request Callback`}
+          course={course}
+          value={open}
+          handleClose={handleClose}
+          thankyouPopup={thankyouPopup}
+          setThankyouPopup={setThankyouPopup}
+        />
       </section>
     </div>
   );

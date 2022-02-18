@@ -9,7 +9,6 @@ import FormModalComponent from "./FormModal/FormModal";
 import CourseButtonComponent from "./CourseButtonComponent/CourseButtonComponent";
 import Grid from "@material-ui/core/Grid";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     background: "#9ed5f6",
@@ -39,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
       // padding: '3rem 0'
     },
     [theme.breakpoints.down("sm")]: {
-      padding: '3rem 0'
+      padding: "3rem 0",
     },
   },
   courseHeading: {
@@ -47,8 +46,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "3rem",
     fontWeight: "bold",
     [theme.breakpoints.down("sm")]: {
-      fontSize: '2rem'
-    }
+      fontSize: "2rem",
+    },
   },
   description: {
     margin: "0.5rem 0 1.8rem 0 !important",
@@ -67,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     margin: "25px 0 0 0",
     [theme.breakpoints.down("xs")]: {
-      flexDirection: 'column',
+      flexDirection: "column",
       alignItems: "start",
     },
     // border: '1px solid red'
@@ -112,7 +111,7 @@ const CoursePage = ({ data }) => {
     setThankyouPopup(false);
   };
 
-  var course = data.overview.course.replace(' Training', '');
+  var course = data.overview.course.replace(" Training", "");
 
   return (
     <div className={classes.root}>
@@ -123,15 +122,21 @@ const CoursePage = ({ data }) => {
               <p style={{ margin: "5px 0px" }}>
                 Online | Self-Paced | Corporate
               </p>
-              <h1 className={classes.courseHeading}>{data.overview.course}</h1>
+              <h1 className={classes.courseHeading}>
+                {data?.course_headings?.course_title}
+              </h1>
               <span
                 className={classes.description}
-                dangerouslySetInnerHTML={{ __html: data?.overview?.description }}
+                dangerouslySetInnerHTML={{
+                  __html: data?.overview?.description,
+                }}
               />
 
-
               <div>
-                <CourseButtonComponent subject='Get Started' setOpen={setOpen} />
+                <CourseButtonComponent
+                  subject="Get Started"
+                  setOpen={setOpen}
+                />
               </div>
               <div className={classes.bannersubText}>
                 <div className={classes.totalRating}>
@@ -154,7 +159,8 @@ const CoursePage = ({ data }) => {
               <img
                 src={
                   "https://tekslateassets.s3.amazonaws.com/images/hero_banner1.svg"
-                } style={{ width: "500px", height: "500px" }}
+                }
+                style={{ width: "500px", height: "500px" }}
                 alt="banner"
                 loading="lazy"
               />

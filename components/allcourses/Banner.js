@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     line: {
-        border:"none",
+        border: "none",
         borderTop: "4px solid #ffcf00",
         width: '10%',
         margin: "auto",
@@ -126,16 +126,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Banner = () => {
+const Banner = ({ cat_page, url_data }) => {
     const classes = useStyles();
     return (
         <div>
             <section className={classes.bannerbg}>
                 <Container className={classes.banner_main} maxWidth="md">
-                    <p className={classes.type}>Home / AllCourses</p>
-                    <h1 className={classes.maintext}>All Courses</h1>
+                    <p className={classes.type} style={{ display: cat_page ? 'none' : 'block' }}>Home / AllCourses</p>
+                    <h1 className={classes.maintext}>{cat_page ? url_data.name : 'All Courses'}</h1>
                     <hr className={classes.line} />
-                    <p className={classes.description}>Learn new skills, pursue your interests or advance your career with our online courses</p>
+                    <p className={classes.description} style={{ display: cat_page ? 'none' : 'block' }}>Learn new skills, pursue your interests or advance your career with our online courses</p>
                     {/* <form >
                         <SearchIcon className={classes.icon_search} />
                         <input type="hidden" name="searchString" />

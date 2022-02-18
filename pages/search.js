@@ -10,7 +10,7 @@ import {
   getAllCourses,
   getAllCategories,
   getAllCourseOffers,
-  getAllBlogs,
+  getAllBlogs
 } from "../apiCalls";
 import MetaTags from "../components/Meta/CourseMetaTags";
 import Pagination from "../components/pagination/Pagination";
@@ -101,58 +101,56 @@ const useStyles = makeStyles((theme) => ({
 const SearchPage = (props) => {
   const classes = useStyles();
   // console.log('*********this is props*********: ', props);
-  const [categories, setCategories] = React.useState([
-    { id: 0, name: "Courses" },
-    { id: 1, name: "Blogs" },
-  ]);
+  const [categories, setCategories] = React.useState([{ id: 0, name: 'Courses' }, { id: 1, name: 'Blogs' }]);
   const [state, setState] = React.useState([]);
   const [itemChecked, setItemChecked] = React.useState([false, false]);
-  const [courses, setCourses] = React.useState(
-    props?.allCourses.final_obj.concat(props?.blogs.final_obj.blogs)
-  );
-  const [allCourses, setAllCourses] = React.useState(
-    props?.allCourses.final_obj
-  );
+  const [courses, setCourses] = React.useState(props?.allCourses.final_obj.concat(props?.blogs.final_obj.blogs));
+  const [allCourses, setAllCourses] = React.useState(props?.allCourses.final_obj);
   const [searchTrue, setSearchTrue] = React.useState(false);
-  const [totalPage, setTotalPage] = React.useState(
-    Math.ceil(props?.allCourses.final_obj.length / 10)
-  );
+  const [totalPage, setTotalPage] = React.useState(Math.ceil(props?.allCourses.final_obj.length / 10));
   const [currPage, setCurrPage] = React.useState(1);
   const [allBlogs, setAllBlogs] = React.useState(props?.blogs.final_obj.blogs);
 
   const handleChange = async (event, data) => {
     // console.log(data,event,'test data')
     if (event.target.checked) {
-      setItemChecked((prev) => {
+      setItemChecked(prev => {
         prev[data] = true;
         if (prev[0] === true && prev[1] === true) {
           setCourses(allCourses.concat(allBlogs));
           setTotalPage(Math.ceil((allCourses.length + allBlogs.length) / 10));
-        } else if (prev[0] === true) {
+        }
+        else if (prev[0] === true) {
           setCourses(allCourses);
           setTotalPage(Math.ceil(allCourses.length / 10));
-        } else if (prev[1] === true) {
+        }
+        else if (prev[1] === true) {
           setCourses(allBlogs);
           setTotalPage(Math.ceil(allBlogs.length / 10));
-        } else {
+        }
+        else {
           setCourses(allCourses.concat(allBlogs));
           setTotalPage(Math.ceil((allCourses.length + allBlogs.length) / 10));
         }
         return prev;
       });
+
     } else {
-      setItemChecked((prev) => {
+      setItemChecked(prev => {
         prev[data] = false;
         if (prev[0] === true && prev[1] === true) {
           setCourses(allCourses.concat(allBlogs));
           setTotalPage(Math.ceil((allCourses.length + allBlogs.length) / 10));
-        } else if (prev[0] === true) {
+        }
+        else if (prev[0] === true) {
           setCourses(allCourses);
           setTotalPage(Math.ceil(allCourses.length / 10));
-        } else if (prev[1] === true) {
+        }
+        else if (prev[1] === true) {
           setCourses(allBlogs);
           setTotalPage(Math.ceil(allBlogs.length / 10));
-        } else {
+        }
+        else {
           setCourses(allCourses.concat(allBlogs));
           setTotalPage(Math.ceil((allCourses.length + allBlogs.length) / 10));
         }
@@ -165,34 +163,22 @@ const SearchPage = (props) => {
   return (
     <div>
       <MetaTags
-        title="Search TekSlate Online Courses And Blogs"
+        title='Search TekSlate Online Courses And Blogs'
         description="Find TekSlate Courses & Blogs. World's leading certification training providers helps to get ahead in IT field like Hadoop, Salesforce , BI Tools, Informatica and more 450+ courses"
-        imgUrl="https://tekslateassets.s3.amazonaws.com/images/logo.svg"
-        cannonical="search"
-      />
+        imgUrl='https://tekslateassets.s3.amazonaws.com/images/logo.svg' cannonical='search' />
       <div>
         <section className={classes.bannerbg}>
           <Container className={classes.banner_main} maxWidth="md">
             <p className={classes.type}>Home / Search</p>
-            {props.search_string &&
-              courses.length !== 1 &&
-              props.search_string !== "" && (
-                <h1 className={classes.maintext}>
-                  {courses.length} Results found for '{props.search_string}'
-                </h1>
-              )}
-            {props.search_string &&
-              courses.length === 1 &&
-              props.search_string !== "" && (
-                <h2 className={classes.maintext}>
-                  {courses.length} Result found for '{props.search_string}'
-                </h2>
-              )}
-            {(props.search_string === "" || !props.search_string) && (
-              <h2 className={classes.maintext}>
-                {courses.length} Result found
-              </h2>
-            )}
+            {props.search_string && courses.length !== 1 && props.search_string !== '' && <h1 className={classes.maintext}>
+              {courses.length} Results found for '{props.search_string}'
+            </h1>}
+            {props.search_string && courses.length === 1 && props.search_string !== '' && <h2 className={classes.maintext}>
+              {courses.length} Result found for '{props.search_string}'
+            </h2>}
+            {(props.search_string === '' || !props.search_string) && <h2 className={classes.maintext}>
+              {courses.length} Result found
+            </h2>}
           </Container>
         </section>
       </div>
@@ -217,17 +203,14 @@ const SearchPage = (props) => {
           </Grid>
         </Grid>
         <div style={{ display: "flex", marginTop: "50px" }}>
-          <Pagination
-            totalPage={totalPage}
-            setCurrPage={setCurrPage}
-            currPage={currPage}
-          />
+          <Pagination totalPage={totalPage} setCurrPage={setCurrPage} currPage={currPage} />
         </div>
         <button></button>
       </Container>
     </div>
   );
 };
+
 
 SearchPage.getInitialProps = async ({ query }) => {
   // console.log('********This is query*********: ', query);
@@ -250,7 +233,7 @@ SearchPage.getInitialProps = async ({ query }) => {
       actual_price_self_paced: val.actual_price_self_paced,
       selling_price_self_paced: val.selling_price_self_paced,
       actual_price_usd_self_paced: val.actual_price_usd_self_paced,
-      selling_price_usd_self_paced: val.selling_price_usd_self_paced,
+      selling_price_usd_self_paced: val.selling_price_usd_self_paced
     };
   }
 
@@ -258,8 +241,8 @@ SearchPage.getInitialProps = async ({ query }) => {
     allCourses,
     courseOffers,
     blogs,
-    search_string: query.search_string,
+    search_string: query.search_string
   };
-};
+}
 
 export default SearchPage;

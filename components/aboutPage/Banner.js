@@ -96,10 +96,11 @@ const Banner = () => {
               <p className={classes.desp}>
                 Premium digital skills training for the future of work.
               </p>
-              
+             
             </Grid>
           </Grid>
         </Container>
+        
       </section>
     </div>
   );

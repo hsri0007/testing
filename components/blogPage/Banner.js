@@ -9,7 +9,8 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import YouTubeIcon from "@material-ui/icons/YouTube";
-const { format } = require('date-fns');
+import Rating from "../RatingComponent/rating";
+const { format } = require("date-fns");
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -89,7 +90,21 @@ const Banner = ({ blog }) => {
         <Container className={classes.banner_main} maxWidth="md">
           <p className={classes.type}>Blog</p>
           <h1 className={classes.maintext}>{blog.title}</h1>
-          <p className={classes.date}>{format(date, 'dd MMMM, yyyy')}</p>
+          <p className={classes.date}>{format(date, "dd MMMM, yyyy")}</p>
+          <div
+            style={{
+              display: "grid",
+              placeItems: "center",
+              paddingBottom: "20px",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center" }}>
+              {" "}
+              Ratings
+              <div style={{ paddingLeft: "20px" }} />
+              <Rating name="read-only" value={blog.rating} readOnly />
+            </div>
+          </div>{" "}
         </Container>
       </section>
     </div>

@@ -1,6 +1,9 @@
 import axios from "axios";
 const dev = process.env.NODE_ENV !== "production";
 
+// const server = dev
+//   ? "http://localhost:8000/backend"
+//   : "https://tkadmin.mindmajixtechhub.com/backend";
 const server = "https://tkadmin.mindmajixtechhub.com/backend";
 
 export const getTrendingCourses = async (path) => {
@@ -168,13 +171,9 @@ export const getData = async (props) => {
       send_obj.course_info = data.data.final_obj;
 
       send_obj.type = data.data.type_d.type;
-    } else if (type === "articles") {
-      const data = await axios.get(
-        `${server}/tutorials/url?url_title=${props}`
-      );
-      send_obj.course_info = data.data.final_obj.article;
+      send_obj.categories = data?.data?.cu_category || [];
     }
-    send_obj.categories = [];
+    // send_obj.categories = [];
     return new Promise((resolve, reject) => {
       return resolve(send_obj);
     });

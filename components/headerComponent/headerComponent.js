@@ -12,6 +12,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import { getAllCourses } from "../../apiCalls";
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
 const useStyles = makeStyles((theme) => ({
   rootNavBar: {
@@ -356,6 +357,17 @@ const HeaderComponent = () => {
                        </Button></div>
                        </div>
                     </div>
+                    {/* <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '1rem' }}>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        // className={classes.button}
+                        endIcon={<KeyboardArrowRightIcon />}
+                        onClick={() => window.open(`/all-courses`, '_blank')}
+                      >
+                        Explore the Category
+                      </Button>
+                    </div> */}
                   </div>
                 </Popover>
 
@@ -547,9 +559,9 @@ const HeaderComponent = () => {
               </Button>
             </div> */}
           </div>
-        </Container>
-      </div>
-    </Fragment>
+        </Container >
+      </div >
+    </Fragment >
   );
 };
 

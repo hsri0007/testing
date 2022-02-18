@@ -21,7 +21,7 @@ const RelatedCourses = ({ data }) => {
   // console.log(reviews, 'total courses')
 
   return (
-    <div style={{ margin: "5rem 0" }}>
+    <div style={{ margin: "5rem 0 0 0" }}>
       <Container>
         <div style={{ textAlign: "center" }}>
           <HeadingsComponent first="Related" last="Courses" />

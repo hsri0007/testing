@@ -16,11 +16,9 @@ const ReviewsPage = (props) => {
   return (
     <div>
       <MetaTags
-        title="Reviews - TekSlate"
+        title='Reviews - TekSlate'
         description="Find the TekSlate reviews provided by the students, learners, and trainers on our live, self-paced, corporate training services."
-        imgUrl="https://tekslateassets.s3.amazonaws.com/images/logo.svg"
-        cannonical="reviews"
-      />
+        imgUrl='https://tekslateassets.s3.amazonaws.com/images/logo.svg' cannonical='reviews' />
       <Banner />
       <SocialReviews />
       {/* <CorporateReviews /> */}
@@ -30,7 +28,7 @@ const ReviewsPage = (props) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const details = {
     limit: 9,
     offset: 0,

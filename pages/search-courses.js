@@ -9,7 +9,7 @@ import {
   getAllCourses,
   getAllCategories,
   getAllCourseOffers,
-  getAllTopLevelCategories,
+  getAllTopLevelCategories
 } from "../apiCalls";
 import MetaTags from "../components/Meta/CourseMetaTags";
 import Pagination from "../components/pagination/Pagination";
@@ -58,18 +58,12 @@ const useStyles = makeStyles((theme) => ({
 const SearchCoursesPage = (props) => {
   const classes = useStyles();
   // console.log('*********this is props*********: ', props);
-  const [categories, setCategories] = React.useState(
-    props?.allCategories.final_obj
-  );
+  const [categories, setCategories] = React.useState(props?.allCategories.final_obj);
   const [state, setState] = React.useState([]);
   const [courses, setCourses] = React.useState(props?.allCourses.final_obj);
-  const [allCourses, setAllCourses] = React.useState(
-    props?.allCourses.final_obj
-  );
+  const [allCourses, setAllCourses] = React.useState(props?.allCourses.final_obj);
   const [searchTrue, setSearchTrue] = React.useState(false);
-  const [totalPage, setTotalPage] = React.useState(
-    Math.ceil(props?.allCourses.count / 10)
-  );
+  const [totalPage, setTotalPage] = React.useState(Math.ceil(props?.allCourses.count / 10));
   const [currPage, setCurrPage] = React.useState(1);
 
   const handleChange = async (event, data) => {
@@ -92,8 +86,10 @@ const SearchCoursesPage = (props) => {
       setCurrPage(1);
       setTotalPage(Math.ceil(newCourses.length / 10));
       setCourses(newCourses);
+
     } else {
-      const filterState = state.filter((val) => val !== data);
+
+      const filterState = state.filter((val) => val !== data)
 
       setState(filterState);
       var newCourses = [];
@@ -114,18 +110,10 @@ const SearchCoursesPage = (props) => {
   return (
     <div>
       <MetaTags
-        title="Search TekSlate Online Courses And Blogs"
+        title='Search TekSlate Online Courses And Blogs'
         description="Find TekSlate Courses & Blogs. World's leading certification training providers helps to get ahead in IT field like Hadoop, Salesforce , BI Tools, Informatica and more 450+ courses"
-        imgUrl="https://tekslateassets.s3.amazonaws.com/images/logo.svg"
-        cannonical="search"
-      />
-      <Banner
-        setCourses={setCourses}
-        setSearchTrue={setSearchTrue}
-        courses={courses}
-        setTotalPage={setTotalPage}
-        setCurrPage={setCurrPage}
-      />
+        imgUrl='https://tekslateassets.s3.amazonaws.com/images/logo.svg' cannonical='search' />
+      <Banner setCourses={setCourses} setSearchTrue={setSearchTrue} courses={courses} setTotalPage={setTotalPage} setCurrPage={setCurrPage} />
       <Container maxWidth="lg">
         <Grid className={classes.wrapper} container spacing={3}>
           <Grid className={classes.sidebar} item lg={3} md={3} sm={12} xs={12}>
@@ -146,11 +134,7 @@ const SearchCoursesPage = (props) => {
           </Grid>
         </Grid>
         <div style={{ display: "flex", marginTop: "50px" }}>
-          <Pagination
-            totalPage={totalPage}
-            setCurrPage={setCurrPage}
-            currPage={currPage}
-          />
+          <Pagination totalPage={totalPage} setCurrPage={setCurrPage} currPage={currPage} />
         </div>
         <button></button>
       </Container>
@@ -168,7 +152,7 @@ const SearchCoursesPage = (props) => {
 //   const allCategories = await getAllCategories();
 //   const allCourseOffers = await getAllCourseOffers();
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const details = {
     search_string: "",
     // limit: 10,
@@ -188,7 +172,7 @@ export async function getServerSideProps() {
       actual_price_self_paced: val.actual_price_self_paced,
       selling_price_self_paced: val.selling_price_self_paced,
       actual_price_usd_self_paced: val.actual_price_usd_self_paced,
-      selling_price_usd_self_paced: val.selling_price_usd_self_paced,
+      selling_price_usd_self_paced: val.selling_price_usd_self_paced
     };
   }
 
@@ -196,7 +180,7 @@ export async function getServerSideProps() {
     props: {
       allCourses,
       allCategories,
-      courseOffers,
+      courseOffers
     }, // will be passed to the page component as props
   };
 }

@@ -194,6 +194,7 @@ function footerComponent() {
                             <p className={classes.footerElementsTitle}>Work with us</p>
                             <ul className={classes.list1}>
                                 <li><a target="_blank" href="/become-an-instructor" className={classes.footerElementsContent}>Become an instructor</a></li>
+                                <li><a target="_blank" href="/write-for-us" className={classes.footerElementsContent}>Write for us</a></li>
                             </ul>
                         </div>
                     </Grid>

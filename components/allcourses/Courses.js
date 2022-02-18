@@ -106,11 +106,14 @@ const Courses = ({ state, courses, course_offers, searchTrue, currPage }) => {
     <div>
       <section className={classes.section}>
         <Container maxWidth="md">
-          {!searchTrue &&
-            courses?.map((val, index) => {
+          {
+            !searchTrue &&
+            courses && courses?.map((val, index) => {
               if (
-                (Object.keys(state).length === 0 ||
-                  (state.indexOf(val.category) !== -1)) &&
+                // (
+                //   // Object.keys(state).length === 0 ||
+                //   state === val.category
+                // ) &&
                 val.status === 1 && index < currPage * 10 && index >= (currPage - 1) * 10
               ) {
                 return (
@@ -157,7 +160,7 @@ const Courses = ({ state, courses, course_offers, searchTrue, currPage }) => {
                         sm={12}
                         xs={12}
                       >
-                        {course_offers[val.id] !== undefined &&
+                        {/* {course_offers[val.id] !== undefined &&
                           course_offers[val.id] !== null &&
                           course_offers[val.id].selling_price !== 0 && (
                             <p className={classes.price}>
@@ -172,7 +175,7 @@ const Courses = ({ state, courses, course_offers, searchTrue, currPage }) => {
                               <span className={classes.priceTag}>RS</span>
                               {course_offers[val.id].actual_price}
                             </p>
-                          )}
+                          )} */}
                       </Grid>
 
                     </Grid>
@@ -181,7 +184,7 @@ const Courses = ({ state, courses, course_offers, searchTrue, currPage }) => {
               }
             })}
           {searchTrue &&
-            courses.map((val, index) => {
+            courses && courses.map((val, index) => {
               if (val.status === 1 && index < currPage * 10 && index >= (currPage - 1) * 10) {
                 return (
                   <a href={`/${val.url_title}`}>
@@ -219,7 +222,7 @@ const Courses = ({ state, courses, course_offers, searchTrue, currPage }) => {
                           </Grid>
                         </Grid>
                       </Grid>
-                      <Grid
+                      {/* <Grid
                         item
                         lg={3}
                         md={3}
@@ -242,7 +245,7 @@ const Courses = ({ state, courses, course_offers, searchTrue, currPage }) => {
                               {course_offers[val.id].actual_price}
                             </p>
                           )}
-                      </Grid>
+                      </Grid> */}
 
                     </Grid>
                   </a>

@@ -3,9 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 // import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import AccordionComponent from '../AccordionComponent/AccordionComponent';
+import AccordionComponent from "../AccordionComponent/AccordionComponent";
 import HeadingsComponent from "../HeadingsComponent/HeadingsComponent";
-import FormModalComponent from '../FormModal/FormModal';
+import FormModalComponent from "../FormModal/FormModal";
 import CourseButtonComponent from "../CourseButtonComponent/CourseButtonComponent";
 
 const useStyles = makeStyles((theme) => ({
@@ -19,15 +19,15 @@ const useStyles = makeStyles((theme) => ({
     width: "65%",
     margin: "0 auto",
     [theme.breakpoints.down("md")]: {
-      width: '80%'
+      width: "80%",
     },
     [theme.breakpoints.down("sm")]: {
-      width: '95%'
+      width: "95%",
     },
   },
 }));
 
-export default function Faqs({ value, coursedetails, course }) {
+export default function Faqs({ value, coursedetails, course, data }) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [toggle, setToggle] = useState(true);
@@ -54,8 +54,8 @@ export default function Faqs({ value, coursedetails, course }) {
       <section className={classes.section}>
         <Container>
           <div className={classes.sideElement}>
-            <HeadingsComponent first={coursedetails} last="FAQ'S" />
-            <p style={{ paddingBottom: '1rem' }}>
+            <HeadingsComponent first={data?.course_headings?.course_faq} />
+            <p style={{ paddingBottom: "1rem" }}>
               Have questions? We’ve got the answers. Get the details on how you
               can grow in this course.
             </p>
@@ -79,7 +79,7 @@ export default function Faqs({ value, coursedetails, course }) {
               style={{
                 display: "flex",
                 justifyContent: "space-evenly",
-                marginTop: '1.5rem'
+                marginTop: "1.5rem",
               }}
             >
               <Button
@@ -89,12 +89,23 @@ export default function Faqs({ value, coursedetails, course }) {
               >
                 {toggle ? "read more" : "read less"}
               </Button>
-              <CourseButtonComponent subject='Get Details' setOpen={setOpen} arrow={false} />
+              <CourseButtonComponent
+                subject="Get Details"
+                setOpen={setOpen}
+                arrow={false}
+              />
             </div>
           </div>
           {/* </Grid> */}
         </Container>
-        <FormModalComponent subject={` ${course} Get Details`} course={course} value={open} handleClose={handleClose} thankyouPopup={thankyouPopup} setThankyouPopup={setThankyouPopup} />
+        <FormModalComponent
+          subject={` ${course} Get Details`}
+          course={course}
+          value={open}
+          handleClose={handleClose}
+          thankyouPopup={thankyouPopup}
+          setThankyouPopup={setThankyouPopup}
+        />
       </section>
     </div>
   );

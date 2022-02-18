@@ -1,15 +1,16 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import FormLabel from "@material-ui/core/FormLabel";
+// import Accordion from "@material-ui/core/Accordion";
+// import AccordionDetails from "@material-ui/core/AccordionDetails";
+// import AccordionSummary from "@material-ui/core/AccordionSummary";
+// import Typography from "@material-ui/core/Typography";
+// import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+// import FormLabel from "@material-ui/core/FormLabel";
+import { Button } from '@material-ui/core';
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
+// import FormHelperText from "@material-ui/core/FormHelperText";
 import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles((theme) => ({
@@ -60,27 +61,35 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "10px",
     background: "#1358db",
     color: "white",
-    borderRadius: "5px",
-    padding: "5px 0px",
+    textAlign: 'left',
+    textTransform: 'capitalize',
+    // borderRadius: "5px",
+    // padding: "5px 0px",
 
     "& span": {
       fontFamily: "inherit",
       fontSize: "14px",
       color: "white",
+      textAlign: 'left',
+      justifyContent: 'flex-start'
     },
   },
   checkCourse2: {
     marginBottom: "10px",
     background: "#d1d1d1",
     color: "white",
-    borderRadius: "5px",
-    padding: "5px 0px",
+    textAlign: 'left',
+    textTransform: 'capitalize',
+    // borderRadius: "5px",
+    // padding: "5px",
 
 
     "& span": {
       fontFamily: "inherit",
       fontSize: "14px",
       color: "#444444",
+      textAlign: 'left',
+      justifyContent: 'flex-start'
     },
   },
   // categoryCard:{
@@ -88,10 +97,10 @@ const useStyles = makeStyles((theme) => ({
   // },
 }));
 
-const Sidebar = ({ categories, state, handleChange, }) => {
+const Sidebar = ({ categories, state, handleChange, cat_page, url, url_data }) => {
   const classes = useStyles();
-  const { gilad, jason, antoine } = state;
-  const error = [gilad, jason, antoine].filter((v) => v).length !== 2;
+
+  const cat_data = cat_page ? categories.filter((c) => c.slug !== url) : categories;
 
   return (
     <div>
@@ -99,15 +108,17 @@ const Sidebar = ({ categories, state, handleChange, }) => {
         <h4 className={classes.title}>Categories</h4>
         <div>
           <FormControl component="fieldset" className={classes.formControl}>
+            {cat_page ? (
+              <Button className={classes.checkCourse}>
+                {url_data.name}
+              </Button>
+            ) : <></>}
             <FormGroup>
-              {categories?.map((val, index) => {
-                // console.log(val, 'side bar')
+              {cat_data?.map((val, index) => {
                 return (
-                  <FormControlLabel
-                    className={state.includes(val.id) ? classes.checkCourse : classes.checkCourse2}
-                    control={<Checkbox onChange={(event) => handleChange(event, val.id)} name={val.id} />}
-                    label={val.name}
-                  />
+                  <Button className={classes.checkCourse2} href={`${val.slug}`}>
+                    {val.name}
+                  </Button>
                 );
               })}
             </FormGroup>

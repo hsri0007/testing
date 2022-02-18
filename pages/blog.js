@@ -116,7 +116,7 @@ const Blog = (props) => {
 
 export async function getServerSideProps(ctx) {
   try {
-    const blogs = await getAllBlogs({ offset: 0, limit: 500 });
+    const blogs = await getAllBlogs({ offset: 0, limit: 3000 });
 
     let newCourses3 = [];
     let newCourses2 = [];

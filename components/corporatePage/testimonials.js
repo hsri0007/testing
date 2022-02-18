@@ -266,7 +266,8 @@ function testimonials({ home }) {
                   <img
                     className={classes.profileImg}
                     style={{ width: "120px", height: "120px" }}
-                    src="https://tekslateassets.s3.amazonaws.com/images/profile.svg" alt="user reviews"
+                    src="https://tekslateassets.s3.amazonaws.com/images/profile.svg"
+                    alt="user reviews"
                     loading="lazy"
                   />
                   <div>
@@ -292,7 +293,8 @@ function testimonials({ home }) {
                   <img
                     className={classes.profileImg}
                     style={{ width: "120px", height: "120px" }}
-                    src="https://tekslateassets.s3.amazonaws.com/images/profile.svg" alt="user reviews"
+                    src="https://tekslateassets.s3.amazonaws.com/images/profile.svg"
+                    alt="user reviews"
                   />
                   <div>
                     {/* <FormatQuoteIcon className={classes.quoteIcon} /> */}
@@ -317,7 +319,8 @@ function testimonials({ home }) {
                   <img
                     className={classes.profileImg}
                     style={{ width: "120px", height: "120px" }}
-                    src="https://tekslateassets.s3.amazonaws.com/images/profile.svg" alt="user reviews"
+                    src="https://tekslateassets.s3.amazonaws.com/images/profile.svg"
+                    alt="user reviews"
                   />
                   <div>
                     {/* <FormatQuoteIcon className={classes.quoteIcon} /> */}

@@ -227,7 +227,7 @@ export default function TrainingOptions({ data }) {
   }, []);
 
   const Script = ({ datedata }) => {
-    console.log(data);
+    // console.log(data);
     const rupeesShow = () => {
       return data.offer?.selling_price_self_paced
         ? data.offer?.selling_price_self_paced
@@ -299,7 +299,7 @@ export default function TrainingOptions({ data }) {
       <section className={classes.section}>
         <Container>
           <div className={classes.trainingHeading}>
-            <HeadingsComponent first="Training" last="Options" />
+            <HeadingsComponent first={data?.course_headings?.modes_training} />
             <h2 style={{ marginTop: "9px" }}>
               Different individuals. Different upgrade goals. Different modes of
               learning.
@@ -500,7 +500,7 @@ export default function TrainingOptions({ data }) {
         {demoDates.length > 0 ? (
           <Container>
             <div className={classes.upcomingRoot}>
-              <h2>{data.overview.course} Upcoming Batches</h2>
+              <h2>{data?.course_headings?.course_events} Upcoming Batches</h2>
               {/* <FormControl className={classes.formControl}>
                             <InputLabel id="demo-simple-select-label">Country</InputLabel>
                             <Select

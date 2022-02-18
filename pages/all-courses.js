@@ -1,6 +1,7 @@
 import React from "react";
+import { useRouter } from "next/router";
 import Banner from "../components/allcourses/Banner";
-import Courses from "../components/allcourses/Courses";
+import Courses from "../components/allcourses/AllCoursePage";
 import Grid from "@material-ui/core/Grid";
 import { Container } from "@material-ui/core";
 import Sidebar from "../components/allcourses/sidebar";
@@ -12,7 +13,8 @@ import {
   getAllTopLevelCategories,
 } from "../apiCalls";
 import MetaTags from "../components/Meta/CourseMetaTags";
-import Pagination from "../components/pagination/Pagination";
+// import Pagination from "../components/pagination/Pagination";
+import Pagination from "@material-ui/lab/Pagination";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -57,47 +59,44 @@ const useStyles = makeStyles((theme) => ({
 
 const Course = (props) => {
   const classes = useStyles();
+  const router = useRouter();
   // console.log('*********this is props*********: ', props);
   const [categories, setCategories] = React.useState(
-    props?.allCategories.final_obj
+    props?.allCourses?.categories
   );
-  const [state, setState] = React.useState([]);
-  const [courses, setCourses] = React.useState(props?.allCourses.final_obj);
-  const [allCourses, setAllCourses] = React.useState(
-    props?.allCourses.final_obj
-  );
+  const [state, setState] = React.useState(1);
+  const [courses, setCourses] = React.useState(props?.allCourses?.final_obj);
+  // const [allCourses, setAllCourses] = React.useState(props?.allCourses?.final_obj);
   const [searchTrue, setSearchTrue] = React.useState(false);
   const [totalPage, setTotalPage] = React.useState(
-    Math.ceil(props?.allCourses.final_obj.length / 10)
+    Math.floor(props.allCourses?.count / 10)
   );
   const [currPage, setCurrPage] = React.useState(1);
+  const [isLoading, setisLoading] = React.useState(false);
 
-  const handleChange = async (event, data) => {
-    if (event.target.checked) {
-      var newState = [...state, data];
-      setState([...state, data]);
-      var newCourses = [];
-      for (var val of allCourses) {
-        if (newState.indexOf(val.category) !== -1) newCourses.push(val);
+  const paginationChange = async (e, value) => {
+    setCurrPage(value);
+    setisLoading(true);
+    try {
+      const details = {
+        limit: 10,
+        offset: value * 10,
+      };
+      const data = await getAllCourses(details);
+      if (data?.success === true) {
+        setCourses(data.final_obj);
       }
-      setTotalPage(Math.ceil(newCourses.length / 10));
-      setCourses(newCourses);
-    } else {
-      const filterState = state.filter((val) => val !== data);
-
-      setState(filterState);
-      var newCourses = [];
-      for (var val of allCourses) {
-        if (filterState.indexOf(val.category) !== -1) newCourses.push(val);
-      }
-      if (newCourses.length === 0) {
-        setTotalPage(Math.ceil(allCourses.length / 10));
-        setCourses(allCourses);
-      } else {
-        setTotalPage(Math.ceil(newCourses.length / 10));
-        setCourses(newCourses);
-      }
+      setisLoading(false);
+    } catch (error) {
+      console.log(error);
+      setisLoading(false);
     }
+  };
+  const handleChange = async (event, data, slug) => {
+    // console.log(data, state, 'before')
+    // console.log(data, state, 'after');
+    // if (event.target.checked) {
+    window.location.open = `${slug}`;
   };
 
   return (
@@ -116,20 +115,35 @@ const Course = (props) => {
               categories={categories}
               state={state}
               handleChange={handleChange}
+              cat_page={false}
             />
           </Grid>
           <Grid className={classes.main} item lg={9} md={9} sm={12} xs={12}>
-            <Courses
-              state={state}
-              courses={courses}
-              course_offers={props.courseOffers}
-              searchTrue={searchTrue}
-              currPage={currPage}
-            />
+            {isLoading ? (
+              <p>loading..</p>
+            ) : (
+              <Courses
+                state={state}
+                courses={courses}
+                course_offers={props.courseOffers}
+                searchTrue={searchTrue}
+                currPage={currPage}
+                isLoading={isLoading}
+              />
+            )}
           </Grid>
         </Grid>
         <div style={{ display: "flex", marginTop: "50px" }}>
-          <Pagination totalPage={totalPage} setCurrPage={setCurrPage} />
+          <div style={{ margin: "auto" }} className={classes.root}>
+            <Pagination
+              count={totalPage}
+              page={currPage}
+              onChange={paginationChange}
+              variant="outlined"
+              color="primary"
+            />
+          </div>
+          {/* <Pagination totalPage={totalPage} setCurrPage={setCurrPage} onChange={paginationChange} /> */}
         </div>
         <button></button>
       </Container>
@@ -149,41 +163,21 @@ const Course = (props) => {
 
 export async function getServerSideProps() {
   const details = {
-    search_string: "",
-    // limit: 10,
+    // search_string: "",
+    limit: 10,
     offset: 0,
   };
   const allCourses = await getAllCourses(details);
-  const allCategories = await getAllTopLevelCategories({});
-  const allCourseOffers = await getAllCourseOffers();
-
-  var courseOffers = {};
-  for (let val of allCourseOffers) {
-    courseOffers[val.course_id] = {
-      actual_price: val.actual_price,
-      selling_price: val.selling_price,
-      actual_price_usd: val.actual_price_usd,
-      selling_price_usd: val.selling_price_usd,
-      actual_price_self_paced: val.actual_price_self_paced,
-      selling_price_self_paced: val.selling_price_self_paced,
-      actual_price_usd_self_paced: val.actual_price_usd_self_paced,
-      selling_price_usd_self_paced: val.selling_price_usd_self_paced,
-    };
-  }
+  // const allCategories = await getAllTopLevelCategories({});
+  // const allCourseOffers = await getAllCourseOffers();
 
   return {
     props: {
       allCourses,
-      allCategories,
-      courseOffers,
+      // allCategories,
+      // courseOffers
     }, // will be passed to the page component as props
   };
 }
 
 export default Course;
-
-// const search = () => {
-//   return <div>Search</div>;
-// };
-
-// export default search;

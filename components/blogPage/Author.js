@@ -11,16 +11,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     overflow: "hidden",
-    padding: theme.spacing(0, 3),
-    
-    
-    
+    padding: theme.spacing(0, 3), 
   },
   paper: {
-   
     boxShadow: '0 2px 18px 0 rgb(0 0 0 / 12%)'
-    
-  },
+    },
   authdetails: {
     display: "flex",
     paddingLeft: "10px",
@@ -42,11 +37,12 @@ const useStyles = makeStyles((theme) => ({
     color: "#ababab"
   },
   large: {
-    width: theme.spacing(12),
-    height: theme.spacing(12),
+    width: theme.spacing(11),
+    height: theme.spacing(11),
     marginTop:'10px',
     marginLeft: "18px",
-    marginRight: "18px"
+    // marginRight: "18px",borderRadius:"50%",
+    // boxShadow: "0 2px 18px 0 rgb(0 0 0 / 8%)",
   },
   aboutauth: {
     display: "flex",
@@ -82,9 +78,9 @@ export default function AutoGridNoWrap() {
           <div className={matches?classes.aboutauth2:classes.aboutauth}>
 
             <div className={classes.authimg}>
-              <Avatar
-                alt="Remy Sharp"
-                src="https://cdn.mindmajix.com/authors/madhuri.jpg"
+              <img
+                alt="Authorlogo"
+                src="https://tekslateassets.s3.amazonaws.com/images/logo.svg"
                 className={classes.large}
               />
             </div>
@@ -95,7 +91,7 @@ export default function AutoGridNoWrap() {
                   <b>Name</b>
                 </Typography>
                 <Typography className={classes.authname1}>
-                  Madhuri Yerukala
+                  TekSlate
                 </Typography>
               </div>
               <div className={classes.authdetails1}>
@@ -103,11 +99,7 @@ export default function AutoGridNoWrap() {
                   <b>Author Bio</b>
                 </Typography>
                 <Typography className={classes.authbio1}>
-                  Madhuri is a Senior Content Creator at MindMajix. She has
-                  written about a range of different topics on various
-                  technologies, which include, Splunk, Tensorflow, Selenium, and
-                  CEH. She spends most of her time researching on technology,
-                  and startups. Connect with her via LinkedIn and Twitter .
+                  TekSlate is the best online training provider in delivering world-class IT skills to individuals and corporates from all parts of the globe. We are proven experts in accumulating every need of an IT skills upgrade aspirant and have delivered excellent services. We aim to bring you all the essentials to learn and master new technologies in the market with our articles, blogs, and videos. Build your career success with us, enhancing most in-demand skills .
                 </Typography>
               </div>
             </div>

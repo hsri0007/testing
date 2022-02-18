@@ -108,13 +108,16 @@ const Courses = ({ state, courses, course_offers, searchTrue, currPage }) => {
     <div>
       <section className={classes.section}>
         <Container maxWidth="md">
-          {!searchTrue &&
+          {
+            // !searchTrue &&
             courses?.map((val, index) => {
               if (
-                (Object.keys(state).length === 0 ||
-                  (state.indexOf(val.category) !== -1)) &&
+                // (
+                // Object.keys(state).length === 0 ||
+                // (state.indexOf(val.category) !== -1)) &&
                 val.status === 1 && index < currPage * 10 && index >= (currPage - 1) * 10
               ) {
+                // console.log(' first loop this wroking*** ')
                 var date;
                 if (val.updated_at) date = new Date(val.updated_at); //FOR BLOGS
                 return (
@@ -193,9 +196,11 @@ const Courses = ({ state, courses, course_offers, searchTrue, currPage }) => {
                 );
               }
             })}
-          {searchTrue &&
+          {/* {
+            searchTrue &&
             courses.map((val, index) => {
               if (val.status === 1 && index < currPage * 10 && index >= (currPage - 1) * 10) {
+                // console.log(' second loop this wroking*** ')
                 return (
                   <a href={`/${val.url_title}`}>
                     <Grid className={classes.coursecard} container spacing={3}>
@@ -261,7 +266,7 @@ const Courses = ({ state, courses, course_offers, searchTrue, currPage }) => {
                   </a>
                 );
               }
-            })}
+            })} */}
           {/* <div style={{display:"flex", marginTop:"50px"}}>
               <Pagination />
            </div> */}

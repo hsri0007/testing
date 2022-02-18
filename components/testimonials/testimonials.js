@@ -178,7 +178,7 @@ function testimonials({ data }) {
     arrows: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: data.reviews.length,
     slidesToScroll: 1,
     autoplay: true,
     customPaging: (i) => {
@@ -208,8 +208,8 @@ function testimonials({ data }) {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: data.reviews.length,
+          slidesToScroll: 1,
           infinite: true,
           dots: false,
         },
@@ -238,9 +238,7 @@ function testimonials({ data }) {
     <section className={classes.firstPage}>
       <Container className={classes.container}>
         <div>
-          <h2 className={classes.title}>
-            Success Stories from Future Digital Leaders
-          </h2>
+          <h2 className={classes.title}>{data?.course_headings?.reviews}</h2>
           <div className={classes.line} />
         </div>
         <div>
@@ -253,17 +251,18 @@ function testimonials({ data }) {
                                     "@context":"http://schema.org",
                                     "@type": "Review",
                                     "name" : "${data.overview.course}",
-                                    "url"  : "https://mindmajix.com/${data.overview.url_title
-                }",
+                                    "url"  : "https://mindmajix.com/${
+                                      data.overview.url_title
+                                    }",
                                     "image" : "${data.overview.image}",
                                     "author" : {
                                       "@type": "Person",
                                       "name": "${data?.reviews[0]?.name}"
                                     },
                                     "reviewBody" : "${data.reviews[0]?.description.replace(
-                  /<[^>]+>/g,
-                  ""
-                )}",
+                                      /<[^>]+>/g,
+                                      ""
+                                    )}",
                                     "reviewRating" : {
                                         "@type": "Rating",
                                         "ratingValue" : "5"
@@ -294,62 +293,54 @@ function testimonials({ data }) {
         </div>
         <div>
           <Slider {...settings}>
-            {data.reviews.map(val => {
-              return <div>
-                <div className={classes.card}>
-                  {val.linkedin_profile && <a href={val.linkedin_profile}>
-                    <LinkedInIcon className={classes.linkedin} />
-                  </a>}
-                  <div className={classes.testimonial}>
-                    {val.image ? <img
-                      className={classes.profileImg}
-                      style={{ width: "120px", height: "120px" }}
-                      src={val.image}
-                      loading="lazy"
-                      alt="tekslate-reviews"
-                    /> : <img
-                      className={classes.profileImg}
-                      style={{ width: "120px", height: "120px" }}
-                      src='https://tekslateassets.s3.amazonaws.com/images/profile.svg'
-                      loading="lazy"
-                      alt="tekslate-reviews"
-                    />}
-                    <div>
-                      {/* <FormatQuoteIcon className={classes.quoteIcon} /> */}
-                      <div className={classes.text} dangerouslySetInnerHTML={{ __html: val.description }} />
-                      {/* <p className={classes.text}>
+            {data.reviews.map((val) => {
+              return (
+                <div>
+                  <div className={classes.card}>
+                    {val.linkedin_profile && (
+                      <a href={val.linkedin_profile}>
+                        <LinkedInIcon className={classes.linkedin} />
+                      </a>
+                    )}
+                    <div className={classes.testimonial}>
+                      {val.image ? (
+                        <img
+                          className={classes.profileImg}
+                          style={{ width: "120px", height: "120px" }}
+                          src={val.image}
+                          loading="lazy"
+                          alt="tekslate-reviews"
+                        />
+                      ) : (
+                        <img
+                          className={classes.profileImg}
+                          style={{ width: "120px", height: "120px" }}
+                          src="https://tekslateassets.s3.amazonaws.com/images/profile.svg"
+                          loading="lazy"
+                          alt="tekslate-reviews"
+                        />
+                      )}
+                      <div>
+                        {/* <FormatQuoteIcon className={classes.quoteIcon} /> */}
+                        <div
+                          className={classes.text}
+                          dangerouslySetInnerHTML={{ __html: val.description }}
+                        />
+                        {/* <p className={classes.text}>
                       My experience at tekslate really impacted my career. It
                       put me in a position to get the job I have today.
                     </p> */}
+                      </div>
                     </div>
+                    <div className={classes.line2} />
+                    <p className={classes.name}>{val.name}</p>
+                    {val.designation && (
+                      <p className={classes.designation}>{val.designation}</p>
+                    )}
                   </div>
-                  <div className={classes.line2} />
-                  <p className={classes.name}>{val.name}</p>
-                  {val.designation && <p className={classes.designation}>{val.designation}</p>}
                 </div>
-              </div>
+              );
             })}
-            {/* {trending.map((a) => (
-              <div className={classes.card}>
-                <Card className={classes.root}>
-                  <CardActionArea>
-                    <CardMedia
-                      className={classes.media}
-                      image={a.image}
-                      title={a.course}
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {a.course}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  <CardActions className={classes.cardActions}>
-                  <Button className={classes.btn}>Browse courses <ArrowForwardIosIcon className={classes.btnArrow} /></Button>
-                  </CardActions>
-                </Card>
-              </div>
-            ))} */}
           </Slider>
         </div>
       </Container>
