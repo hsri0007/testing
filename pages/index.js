@@ -42,7 +42,7 @@ function Home(props) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const data_trending = await getTrendingCourses("trending");
   const data_popular = await getTrendingCourses("popular");
 

@@ -30,7 +30,7 @@ const Course = (props) => {
   }
 };
 
-export async function getStaticProps(ctx) {
+export async function getServerSideProps(ctx) {
   try {
     const data = await getData(ctx.params.page);
     // console.log(props.trending.course_info, "type");
@@ -52,28 +52,6 @@ export async function getStaticProps(ctx) {
   } catch (error) {
     console.log(error);
   }
-}
-
-// catch (error) {
-//   console.log(error);
-// }
-export async function getStaticPaths() {
-  const paths = static_course_paths.map((arg) => {
-    return { params: { page: arg } };
-  });
-
-  // return {
-  //   paths: [
-  //     {
-  //       params: { page: "angularjs-training" },
-  //     },
-  //   ],
-  //   fallback: "blocking",
-  // };
-  return {
-    paths,
-    fallback: "blocking",
-  };
 }
 
 export default Course;

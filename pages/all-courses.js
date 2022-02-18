@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 import Banner from "../components/allcourses/Banner";
 import Courses from "../components/allcourses/AllCoursePage";
 import Grid from "@material-ui/core/Grid";
@@ -10,11 +10,11 @@ import {
   getAllCourses,
   getAllCategories,
   getAllCourseOffers,
-  getAllTopLevelCategories
+  getAllTopLevelCategories,
 } from "../apiCalls";
 import MetaTags from "../components/Meta/CourseMetaTags";
 // import Pagination from "../components/pagination/Pagination";
-import Pagination from '@material-ui/lab/Pagination';
+import Pagination from "@material-ui/lab/Pagination";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -61,12 +61,16 @@ const Course = (props) => {
   const classes = useStyles();
   const router = useRouter();
   // console.log('*********this is props*********: ', props);
-  const [categories, setCategories] = React.useState(props?.allCourses?.categories);
+  const [categories, setCategories] = React.useState(
+    props?.allCourses?.categories
+  );
   const [state, setState] = React.useState(1);
   const [courses, setCourses] = React.useState(props?.allCourses?.final_obj);
   // const [allCourses, setAllCourses] = React.useState(props?.allCourses?.final_obj);
   const [searchTrue, setSearchTrue] = React.useState(false);
-  const [totalPage, setTotalPage] = React.useState(Math.floor(props.allCourses?.count / 10));
+  const [totalPage, setTotalPage] = React.useState(
+    Math.floor(props.allCourses?.count / 10)
+  );
   const [currPage, setCurrPage] = React.useState(1);
   const [isLoading, setisLoading] = React.useState(false);
 
@@ -87,8 +91,8 @@ const Course = (props) => {
       console.log(error);
       setisLoading(false);
     }
-  }
-const handleChange = async (event, data, slug) => {
+  };
+  const handleChange = async (event, data, slug) => {
     // console.log(data, state, 'before')
     // console.log(data, state, 'after');
     // if (event.target.checked) {
@@ -98,9 +102,11 @@ const handleChange = async (event, data, slug) => {
   return (
     <div>
       <MetaTags
-        title='Best Online Certification Courses | Get Trained & Certified - TekSlate'
+        title="Best Online Certification Courses | Get Trained & Certified - TekSlate"
         description="Find the Top 100+ Popular IT Courses . ✔️Live Classes ✔️Self-Paced Videos ✔️Corporate Training ➔ Learn from Industry Trainers. Enroll now!"
-        imgUrl='https://tekslateassets.s3.amazonaws.com/images/logo.svg' cannonical='all-course' />
+        imgUrl="https://tekslateassets.s3.amazonaws.com/images/logo.svg"
+        cannonical="all-course"
+      />
       <Banner setCourses={setCourses} setSearchTrue={setSearchTrue} />
       <Container maxWidth="lg">
         <Grid className={classes.wrapper} container spacing={3}>
@@ -113,21 +119,29 @@ const handleChange = async (event, data, slug) => {
             />
           </Grid>
           <Grid className={classes.main} item lg={9} md={9} sm={12} xs={12}>
-            {
-              isLoading ? <p>loading..</p> :
-                <Courses
-                  state={state}
-                  courses={courses}
-                  course_offers={props.courseOffers}
-                  searchTrue={searchTrue}
-                  currPage={currPage}
-                  isLoading={isLoading}
-                />}
+            {isLoading ? (
+              <p>loading..</p>
+            ) : (
+              <Courses
+                state={state}
+                courses={courses}
+                course_offers={props.courseOffers}
+                searchTrue={searchTrue}
+                currPage={currPage}
+                isLoading={isLoading}
+              />
+            )}
           </Grid>
         </Grid>
         <div style={{ display: "flex", marginTop: "50px" }}>
           <div style={{ margin: "auto" }} className={classes.root}>
-            <Pagination count={totalPage} page={currPage} onChange={paginationChange} variant="outlined" color="primary" />
+            <Pagination
+              count={totalPage}
+              page={currPage}
+              onChange={paginationChange}
+              variant="outlined"
+              color="primary"
+            />
           </div>
           {/* <Pagination totalPage={totalPage} setCurrPage={setCurrPage} onChange={paginationChange} /> */}
         </div>
@@ -147,7 +161,7 @@ const handleChange = async (event, data, slug) => {
 //   const allCategories = await getAllCategories();
 //   const allCourseOffers = await getAllCourseOffers();
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const details = {
     // search_string: "",
     limit: 10,
@@ -167,4 +181,3 @@ export async function getStaticProps() {
 }
 
 export default Course;
-
